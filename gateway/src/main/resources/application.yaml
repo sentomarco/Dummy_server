@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: service1-route
+          uri: http://localhost:8081
+          #uri: http://service1:8081
+          predicates:
+            - Path=/service1/**
+          filters:
+            - StripPrefix=1
+        - id: ui
+          uri: http://localhost:51537
+          predicates:
+            - Path=/ui/**
+          filters:
+            - StripPrefix=1
+
+server:
+  port: 8080
+

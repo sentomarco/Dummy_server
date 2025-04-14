@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  gateway:
+    image: com.example/gateway:0.0.1-SNAPSHOT
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - service1
+
+  service1:
+    image: com.example/service1:0.0.1-SNAPSHOT
+    build:
+      context: ./service1
+      dockerfile: Dockerfile
+    expose:
+      - "8081"

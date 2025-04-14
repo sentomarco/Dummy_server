@@ -1,0 +1,37 @@
+When working with containers, you usually need to create a Dockerfile to define your image and a compose.yaml file to define how to run it.
+To help you create these files, Docker has a command called docker init.
+
+
+Useful commands for deployment:
+
+First of all, the kotlin files must be compiled, this must be done for each program/service, in their folder:
+
+	 ./gradlew build 
+
+Then, the .jar builded file can be loaded in docker, executing this command in the root folder (creates the images and loads them):
+
+	- docker-compose up --build  
+
+PS. the first command could be embedded into the docker-compose file in order to execute just the second one.
+ 
+
+
+	Altrimenti, in alternativa, dopo aver compilato i file kotlin in a microservice folder, eg. gateway, 
+	this command creates the image:
+
+		-  docker build -t com.example/gateway:0.0.1-SNAPSHOT . 
+
+	Then, the image is loaded into docker:
+
+		- docker compose up -d   
+		
+
+
+If a task is already working on some port:
+	-  netstat -ano | findstr :8080 
+	-  taskkill /PID pid_task /F    
+
+Nell'application.yaml se uso container devo cambiare la seguente riga relativa al servizio:
+	uri: http://localhost:8081		//(localhost funziona solo per servizi che girano in locale)
+con questa (eg.):
+	uri: http://service1:8081

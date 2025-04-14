@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es6",             // Il codice compilato sarà conforme a ES6
+    "module": "es6",             // Utilizziamo i moduli ES6
+    "strict": true,              // Abilita tutte le verifiche di tipo rigorose
+    "rootDir": "./src",
+    "outDir": "./dist",          // Se preferisci che il JavaScript compilato finisca qui
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src"]
+}
+
+

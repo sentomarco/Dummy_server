@@ -1,0 +1,25 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+#user ignore
+../.idea/
+
+
+../gateway/.gradle/
+../gateway/.idea/
+../gateway/build/
+../gateway/gradle/
+
+../service1/.gradle/
+../service1/.idea/
+../service1/build/
+../service1/gradle/
+
+../UI/.idea/
+../UI/.dist/
+../UI/node_modules/

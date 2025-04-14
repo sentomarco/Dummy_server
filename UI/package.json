@@ -1,0 +1,14 @@
+{
+  "name": "gateway-ui",
+  "version": "1.0.0",
+  "description": "Interfaccia grafica per comunicare con il servizio 1",
+  "scripts": {
+    "build": "tsc",
+    "start": "live-server --watch=src"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^4.9.5",
+    "live-server": "^1.2.1"
+  }
+}
