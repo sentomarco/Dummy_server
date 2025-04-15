@@ -1,41 +1,23 @@
-document.addEventListener('DOMContentLoaded', () => {
+const messageDiv = document.getElementById("message")!;
+const form = document.getElementById("messageForm") as HTMLFormElement;
+const input = document.getElementById("userMessage") as HTMLInputElement;
 
-    const form = document.getElementById('messageForm') as HTMLFormElement;
-    const messageInput = document.getElementById('messageInput') as HTMLInputElement;
-    const resultDiv = document.getElementById('result') as HTMLDivElement;
+async function loadInitialMessage() {
+    const response = await fetch("/service1/hello");
+    const data = await response.json();
+    messageDiv.textContent = data.message;
+}
 
-    form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const message = messageInput.value.trim();
-        if (!message) {
-            resultDiv.textContent = 'Per favore, inserisci un messaggio.';
-            resultDiv.style.color = 'red';
-            return;
-        }
-
-        try {
-
-            // Effettua una chiamata al servizio 1
-            const response = await fetch('/service1/hello', {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message }),
-            });
-
-            if (!response.ok) {
-                throw new Error(`Errore: ${response.statusText}`);
-            }
-
-            const data = await response.json();
-            // Presumendo che il JSON restituito abbia una proprietà "response" con il messaggio aggiornato
-            resultDiv.textContent = `Messaggio inserito: ${data.response}`;
-            resultDiv.style.color = 'green';
-        } catch (error) {
-            resultDiv.textContent = `Errore nell'invio del messaggio: ${error}`;
-            resultDiv.style.color = 'red';
-        }
-
-
+form.onsubmit = async (e) => {
+    e.preventDefault();
+    const userInput = input.value;
+    const response = await fetch("/service1/hello", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userInput }),
     });
-});
+    const data = await response.json();
+    messageDiv.textContent = data.response;
+};
+
+loadInitialMessage();
