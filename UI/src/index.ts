@@ -35,5 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             resultDiv.textContent = `Errore nell'invio del messaggio: ${error}`;
             resultDiv.style.color = 'red';
         }
+
+
     });
 });

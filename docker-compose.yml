@@ -1,19 +1,37 @@
-version: '3.8'
+version: "3.8"
 services:
   gateway:
-    image: com.example/gateway:0.0.1-SNAPSHOT
-    build:
-      context: ./gateway
-      dockerfile: Dockerfile
+    build: ./gateway
     ports:
+      - "8080:8080"
+    expose:
       - "8080:8080"
     depends_on:
       - service1
+      - frontend
+    networks:
+      - app-network
 
   service1:
-    image: com.example/service1:0.0.1-SNAPSHOT
-    build:
-      context: ./service1
-      dockerfile: Dockerfile
+    build: ./service1
+    ports:
+      - "8081:8081"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    build: ./UI
+    # Non esponiamo la porta su host, il gateway la gestisce, oppure lasciamo la porta mappata se necessario per i test interni
     expose:
-      - "8081"
+      - "80:8080"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

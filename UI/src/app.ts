@@ -3,6 +3,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const messageInput = document.getElementById('messageInput') as HTMLInputElement;
     const resultDiv = document.getElementById('result') as HTMLDivElement;
 
+    // Chiamata GET immediata per mostrare il messaggio iniziale
+    fetch('/service1/hello')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Errore: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Presumendo che la risposta abbia la struttura { "message": "..." }
+            resultDiv.textContent = data.message;
+            resultDiv.style.color = 'black';
+        })
+        .catch(error => {
+            resultDiv.textContent = `Errore nel recupero del messaggio: ${error}`;
+            resultDiv.style.color = 'red';
+        });
+
+    // Gestione del submit per la chiamata POST
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
 
@@ -14,13 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            // Effettua una chiamata al servizio 1
-            const response = await fetch('http://localhost:8080/service1/hello', {
-                method: 'POST', // oppure GET a seconda di come è stato configurato il servizio 1
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ message })
+            // La chiamata POST viene effettuata in modo relativo così da passare tramite il gateway
+            const response = await fetch('/service1/hello', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message }),
             });
 
             if (!response.ok) {
@@ -28,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const data = await response.json();
-            // Presumendo che il JSON restituito abbia una proprietà "response" con il messaggio aggiornato
+            // Presumendo che la risposta contenga { "response": "..." }
             resultDiv.textContent = `Messaggio inserito: ${data.response}`;
             resultDiv.style.color = 'green';
         } catch (error) {

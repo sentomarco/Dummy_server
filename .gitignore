@@ -1,0 +1,7 @@
+# Project exclude paths
+/gateway/.gradle/
+/gateway/build/
+/gateway/build/classes/kotlin/main/
+/service1/.gradle/
+/service1/build/
+/service1/build/classes/kotlin/main/

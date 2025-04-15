@@ -4,20 +4,12 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: service1-route
+        - id: service1
           uri: http://localhost:8081
-          #uri: http://service1:8081
           predicates:
             - Path=/service1/**
-          filters:
-            - StripPrefix=1
-        - id: ui
-          uri: http://localhost:51537
+        - id: frontend
+          uri: http://localhost:80
           predicates:
-            - Path=/ui/**
-          filters:
-            - StripPrefix=1
-
-server:
-  port: 8080
-
+            # Con questa route si escludono le richieste che iniziano con /service1
+            - Path=/{segment:^(?!service1).*$}
