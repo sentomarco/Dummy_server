@@ -14,6 +14,10 @@ repositories {
 }
 
 dependencies {
+    implementation("org.springframework.kafka:spring-kafka")
+    //implementation('org.springframework.kafka:spring-kafka:3.0.0')
+    //implementation('org.apache.kafka:kafka-clients:3.0.0')
+
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")

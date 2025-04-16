@@ -7,7 +7,7 @@ services:
       - "8080:8080" # Esponiamo solo il gateway all'esterno
     depends_on:
       - service1
-      - frontend
+      #- frontend
     networks:
       - app-network
 
@@ -24,13 +24,13 @@ services:
       timeout: 10s
       retries: 3
 
-  frontend:
-    build: ./UI
+#  frontend:
+#    build: ./UI
     # Esposto internamente (non su host), accessibile solo dal gateway
-    expose:
-      - "51869"
-    networks:
-      - app-network
+#    expose:
+ #     - "51869"
+ #   networks:
+ #     - app-network
 
 networks:
   app-network:

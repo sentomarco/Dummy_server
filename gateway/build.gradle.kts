@@ -23,8 +23,8 @@ dependencyManagement {
 }
 
 dependencies {
-    // Webflux è necessario per Spring Cloud Gateway
 
+    // Webflux è necessario per Spring Cloud Gateway
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.cloud:spring-cloud-starter-gateway")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
